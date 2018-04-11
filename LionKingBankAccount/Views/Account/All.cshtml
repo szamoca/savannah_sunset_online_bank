@@ -1,0 +1,105 @@
+﻿@model List<LionKingBankAccount.Models.BankAccount>
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>LK Bank: all customers</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            font-family: Chiller;
+        }
+        th {
+            border: 1.5px solid;
+            border-color: darkolivegreen;
+            background-color: lightgreen;
+            font-size: 36px;
+            color: forestgreen;
+        }
+        td {
+            border: 1px solid;
+            border-color: darkgoldenrod;
+            background-color: khaki;
+            font-size: 30px;
+            color: darkslateblue;
+        }
+        td:hover {
+            background-color: sandybrown;
+        }
+        label {
+            border: 1.5px solid;
+            border-color: aquamarine;
+            background-color: azure;
+            font-size: 30px;
+            color: deepskyblue;
+            font-family: Chiller;
+        }
+        input {
+            border: 1.5px solid;
+            border-color: aquamarine;
+            background-color: azure;
+            font-size: 30px;
+            color: deepskyblue;
+            font-family: Chiller;
+        }
+    </style>
+</head>
+<body style="background: url(/savannah_sunset.jpg) no-repeat; background-size: cover">
+    <table style="width: 100%">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Race</th>
+            <th>Balance</th>
+            <th>Currency</th>
+            <th>King/Csíra</th>
+            <th>Good/Bad</th>
+            <th>Donate</th>
+        </tr>
+
+        @foreach (var account in Model)
+        {
+        <tr>
+            <td>@account.ID</td>
+            <td>@account.Name</td>
+            <td>@account.AnimalType</td>
+            <td style="text-align: right">@account.FormatBalance()</td>
+            <td>@account.Currency</td>
+            
+            @if (account.IsKing)
+            {
+            <td style="text-align: center">👑</td>
+            }
+            else
+            {
+            <td style="text-align: center">🌱</td>
+            }
+
+            @if (account.IsBad)
+            {
+            <td style="text-align: center">😈</td>
+            }
+            else
+            {
+            <td style="text-align: center">😇</td>
+            }
+
+            <td>
+                <form action="/donate/@account.ID" method="post">
+                        <input type="submit" value="Praise @account.Name!" />
+                </form>
+            </td>
+        </tr>
+        }
+    </table>
+
+    <form action="/add-account" method="post">
+        <input type="text" name="Name" id="Name" placeholder="Owner of Account" />
+        <input type="number" name="Balance" id="Balance" placeholder="Starting Balance" />
+        <input type="text" name="AnimalType" id="AnimalType" placeholder="Race" />
+        <label>King: </label><input type="checkbox" name="IsKing" value="true" />
+        <label>Evil: </label><input type="checkbox" name="IsBad" value="true" />
+        <input type="submit" value="Add Customer" />
+    </form>
+</body>
+</html>

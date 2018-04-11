@@ -1,0 +1,11 @@
+﻿@model LionKingBankAccount.Models.BankAccount
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>@Model.Name bank account information</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p><strong>@Model.Name</strong> is a <strong>@Model.AnimalType</strong> and has <strong>@Model.FormatBalance()</strong> @Model.Currency on his/her bank account.</p>
+</body>
+</html>
